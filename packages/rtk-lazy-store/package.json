@@ -1,0 +1,63 @@
+{
+  "name": "@whitetrefoil/rtk-lazy-store",
+  "version": "1.0.0",
+  "description": "A lazy store impl. for Redux w/ Redux Toolkit",
+  "keywords": [
+    "react",
+    "redux",
+    "redux-toolkit",
+    "lazy",
+    "store"
+  ],
+  "files": [
+    "lib",
+    "src",
+    "tests",
+    "tsconfig*.json"
+  ],
+  "type": "module",
+  "source": "src/main.ts",
+  "main": "lib/main.js",
+  "types": "lib/main.d.ts",
+  "exports": {
+    ".": "./lib/main.js"
+  },
+  "scripts": {
+    "prepack": "npm run build; node scripts/prepack.cjs",
+    "postpack": "node scripts/postpack.cjs",
+    "build": "rimraf lib && microbundle --raw -f modern --tsconfig src/tsconfig.json",
+    "publish": "echo \"Done publishing, don't forget to:\n  1. **dist-tag** your channel in npm.\n  2. bump version in package.json\nGood luck with the publish ;)\"",
+    "test": "rimraf test_results && eslint . ; jest --no-cache",
+    "test-ci": "rimraf test_results && eslint -o test_results/eslint/junit.xml -f junit . ; jest -i --no-cache",
+    "watch": "microbundle watch --raw -f modern --tsconfig src/tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:whitetrefoil/rtk-lazy-store.git"
+  },
+  "author": "WhiteTrefoil <whitetrefoil@gmail.com>",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=14.18.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.12.1",
+    "@typescript-eslint/parser": "^5.12.1",
+    "@whitetrefoil/eslint-config": "^0.25.0",
+    "eslint": "^8.10.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-react": "^7.29.2",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "jest": "^27.5.1",
+    "jest-environment-jsdom": "^27.5.1",
+    "jest-junit": "^13.0.0",
+    "jest-localstorage-mock": "^2.4.19",
+    "microbundle": "^0.14.2",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.5.0",
+    "typescript": "^4.5.5"
+  },
+  "packageManager": "yarn@3.2.0"
+}
