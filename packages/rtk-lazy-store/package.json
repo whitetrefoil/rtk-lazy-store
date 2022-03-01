@@ -23,8 +23,7 @@
     ".": "./lib/main.js"
   },
   "scripts": {
-    "prepack": "npm run build; node scripts/prepack.cjs",
-    "postpack": "node scripts/postpack.cjs",
+    "prepack": "npm run build",
     "build": "rimraf lib && microbundle --raw -f modern --tsconfig src/tsconfig.json",
     "publish": "echo \"Done publishing, don't forget to:\n  1. **dist-tag** your channel in npm.\n  2. bump version in package.json\nGood luck with the publish ;)\"",
     "test": "rimraf test_results && eslint . ; jest --no-cache",
