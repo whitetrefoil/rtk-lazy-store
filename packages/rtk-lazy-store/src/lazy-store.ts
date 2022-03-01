@@ -3,39 +3,37 @@ import type {
   AnyAction,
   ConfigureStoreOptions,
   EnhancedStore,
-  LazyStore,
   Middleware,
   Reducer,
 } from '@reduxjs/toolkit'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import type { ThunkMiddlewareFor } from '@reduxjs/toolkit/dist/getDefaultMiddleware'
 
 
 type Middlewares<S> = ReadonlyArray<Middleware<{}, S>>
 
-declare module 'redux' {
-  export interface LazyStore<S,
-    A extends Action = AnyAction,
-    M extends Middlewares<S> = Middlewares<S>,
-    > extends EnhancedStore<S, A, M> {
-    moduleManager: {
-      /**
-       * @returns Whether newly added or not
-       */
-      enter: <K extends keyof S>(
-        key: K,
-        reducer?: (state: S[K], action: A) => S[K],
-      ) => boolean
-      leave: <K extends keyof S>(key: K, clean?: boolean) => void
-    }
+export interface LazyStore<S,
+  A extends Action = AnyAction,
+  M extends Middlewares<S> = [ThunkMiddlewareFor<S>],
+  > extends EnhancedStore<S, A, M> {
+  moduleManager: {
+    /**
+     * @returns Whether newly added or not
+     */
+    enter: <K extends keyof S>(
+      key: K,
+      reducer?: (state: S[K], action: A) => S[K],
+    ) => boolean
+    leave: <K extends keyof S>(key: K, clean?: boolean) => void
   }
 }
 
 
-export type CreateLazyStore<S, A extends Action = AnyAction, M extends Middlewares<S> = Middlewares<S>> =
+export type CreateLazyStore<S, A extends Action = AnyAction, M extends Middlewares<S> = [ThunkMiddlewareFor<S>]> =
   Omit<ConfigureStoreOptions<S, A, M>, 'reducer'>
 
 
-export function createLazyStore<S, A extends Action = AnyAction, M extends Middlewares<S> = Middlewares<S>>(
+export function createLazyStore<S, A extends Action = AnyAction, M extends Middlewares<S> = [ThunkMiddlewareFor<S>]>(
   staticReducers: {
     [K in keyof S]: (state: S[K]|undefined, action: A) => S[K]
   },

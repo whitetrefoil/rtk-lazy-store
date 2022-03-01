@@ -58,7 +58,9 @@
     "jest-localstorage-mock": "^2.4.19",
     "microbundle": "^0.14.2",
     "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.3",
     "ts-node": "^10.5.0",
@@ -67,7 +69,8 @@
   "peerDependencies": {
     "@reduxjs/toolkit": "^1.8.0",
     "react": "^17.0.2",
-    "react-redux": "^7.2.6"
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2"
   },
   "packageManager": "yarn@3.2.0"
 }

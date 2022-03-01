@@ -1,6 +1,7 @@
-import type { AnyAction, LazyStore } from '@reduxjs/toolkit'
+import type { AnyAction } from '@reduxjs/toolkit'
 import { useEffect } from 'react'
 import { useStore } from 'react-redux'
+import type { LazyStore } from './lazy-store'
 
 
 export function createUseLazyReducer<RootState>(cleanReducer = false) {
