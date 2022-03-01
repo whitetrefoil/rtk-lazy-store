@@ -72,7 +72,7 @@ export function useAppDispatch() {
 }
 ```
 
-We also suggest creating an `useLazyStore` hook to help load/unload modules when entering/leaving features (works well with `useEffect`).
+We also suggest creating an `useLazyStore` hook to help load / unload modules when entering / leaving features (using `useEffect`).
 We provide a helper function to create that:
 ```ts
 import { createUseLazyReducer } from '@whitetrefoil/rtk-lazy-store'
