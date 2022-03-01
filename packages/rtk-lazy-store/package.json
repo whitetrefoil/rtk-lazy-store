@@ -36,12 +36,15 @@
     "url": "ssh://git@github.com:whitetrefoil/rtk-lazy-store.git"
   },
   "author": "WhiteTrefoil <whitetrefoil@gmail.com>",
-  "license": "UNLICENSED",
+  "license": "Unlicense",
   "engines": {
     "node": ">=14.18.0"
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^1.8.0",
     "@types/jest": "^27.4.1",
+    "@types/react": "^17.0.39",
+    "@types/react-redux": "^7.1.22",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
     "@whitetrefoil/eslint-config": "^0.25.0",
@@ -54,10 +57,17 @@
     "jest-junit": "^13.0.0",
     "jest-localstorage-mock": "^2.4.19",
     "microbundle": "^0.14.2",
+    "react": "^17.0.2",
+    "react-redux": "^7.2.6",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.3",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
+  },
+  "peerDependencies": {
+    "@reduxjs/toolkit": "^1.8.0",
+    "react": "^17.0.2",
+    "react-redux": "^7.2.6"
   },
   "packageManager": "yarn@3.2.0"
 }

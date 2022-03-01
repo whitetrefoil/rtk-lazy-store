@@ -1,0 +1,37 @@
+{
+  "compileOnSave"  : false,
+  "compilerOptions": {
+    "allowJs"                       : false,
+    "declaration"                   : true,
+    "declarationDir"                : "lib",
+    "emitDecoratorMetadata"         : true,
+    "esModuleInterop"               : true,
+    "experimentalDecorators"        : true,
+    "importsNotUsedAsValues"        : "error",
+    "inlineSourceMap"               : false,
+    "inlineSources"                 : false,
+    "module"                        : "ESNext",
+    "moduleResolution"              : "Node",
+    "noImplicitOverride"            : true,
+    "noImplicitReturns"             : true,
+    "noUncheckedIndexedAccess"      : true,
+    "outDir"                        : "lib",
+    "resolveJsonModule"             : true,
+    "skipDefaultLibCheck"           : true,
+    "skipLibCheck"                  : true,
+    "sourceMap"                     : true,
+    "strict"                        : true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target"                        : "ESNext"
+  },
+  "include"        : [
+    "declarations/**/*.d.ts",
+    "dev/**/*.ts",
+    "*.ts"
+  ],
+  "exclude"        : [
+    "**/node_modules",
+    "**/.*",
+    "**/~*"
+  ]
+}
