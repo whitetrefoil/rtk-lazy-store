@@ -1,4 +1,4 @@
-Lazy Store for Redux w/ Toolkit (@whitetrefoil/rtk-lazy-store)
+Lazy Store for Redux + Saga w/ Toolkit (@whitetrefoil/rtk-lazy-store-saga)
 ==========
 
 This one is designed to be used **with** sagas.
