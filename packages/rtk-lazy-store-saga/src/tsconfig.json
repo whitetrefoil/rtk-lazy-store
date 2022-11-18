@@ -1,15 +1,17 @@
 {
-  "extends": "../tsconfig.json",
-  "include": [
-    "../declarations/**/*.d.ts",
-    "**/*.tsx",
-    "**/*.ts"
+  "extends"        : "../tsconfig.json",
+  "compilerOptions": {
+    "declaration"  : true,
+    "inlineSources": true,
+    "outDir"       : "../lib",
+    "sourceMap"    : true
+  },
+  "include"        : [
+    "../declarations/*.ts",
+    "*.ts"
   ],
   "exclude": [
-    "**/node_modules",
-    "**/.*",
-    "**/~*",
-    "**/*.spec.tsx",
-    "**/*.spec.ts"
+    "node_modules",
+    "*.spec.ts"
   ]
 }

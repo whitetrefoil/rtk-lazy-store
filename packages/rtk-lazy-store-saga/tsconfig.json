@@ -2,16 +2,15 @@
   "compileOnSave"  : false,
   "compilerOptions": {
     "allowJs"                       : false,
-    "declaration"                   : true,
-    "declarationDir"                : "lib",
     "emitDecoratorMetadata"         : true,
     "esModuleInterop"               : true,
     "experimentalDecorators"        : true,
+    "importHelpers"                 : true,
     "importsNotUsedAsValues"        : "error",
-    "inlineSourceMap"               : false,
-    "inlineSources"                 : false,
+    "isolatedModules"               : true,
     "module"                        : "ESNext",
     "moduleResolution"              : "Node",
+    "noEmit"                        : true,
     "noImplicitOverride"            : true,
     "noImplicitReturns"             : true,
     "noUncheckedIndexedAccess"      : true,
@@ -25,13 +24,14 @@
     "target"                        : "ESNext"
   },
   "include"        : [
-    "declarations/**/*.d.ts",
-    "dev/**/*.ts",
+    "declarations/*.ts",
     "*.ts"
   ],
   "exclude"        : [
-    "**/node_modules",
-    "**/.*",
-    "**/~*"
-  ]
+    "node_modules"
+  ],
+  "ts-node"        : {
+    "esm"          : true,
+    "transpileOnly": true
+  }
 }

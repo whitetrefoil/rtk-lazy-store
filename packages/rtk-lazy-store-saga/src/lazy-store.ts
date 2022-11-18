@@ -1,8 +1,16 @@
-import type { Action, AnyAction, ConfigureStoreOptions, EnhancedStore, Middleware, Reducer } from '@reduxjs/toolkit'
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import type { ThunkMiddlewareFor } from '@reduxjs/toolkit/dist/getDefaultMiddleware'
-import type { SagaMiddlewareOptions, Task } from 'redux-saga'
-import createSagaMiddleware from 'redux-saga'
+import type {
+  Action,
+  AnyAction,
+  CombinedState,
+  ConfigureStoreOptions,
+  EnhancedStore,
+  Middleware,
+  Reducer,
+} from '@reduxjs/toolkit'
+import {combineReducers, configureStore} from '@reduxjs/toolkit'
+import type {ThunkMiddlewareFor} from '@reduxjs/toolkit/dist/getDefaultMiddleware.js'
+import type {SagaMiddlewareOptions, Task} from 'redux-saga'
+import {default as createSagaMiddleware} from 'redux-saga'
 
 
 export type Middlewares<S> = ReadonlyArray<Middleware<{}, S>>
@@ -12,7 +20,7 @@ export type AnySaga = (...args: unknown[]) => Iterator<unknown, unknown, unknown
 export interface LazyStoreSaga<S,
   A extends Action = AnyAction,
   M extends Middlewares<S> = [ThunkMiddlewareFor<S>],
-  > extends EnhancedStore<S, A, M> {
+> extends EnhancedStore<CombinedState<S>, A, M> {
   moduleManager: {
     /**
      * @returns Whether newly added or not
@@ -27,7 +35,7 @@ export interface LazyStoreSaga<S,
 }
 
 export interface CreateLazyStoreOptions<S, A extends Action = AnyAction, M extends Middlewares<S> = [ThunkMiddlewareFor<S>], C extends object = {}>
-  extends Omit<ConfigureStoreOptions<S, A, M>, 'reducer'> {
+  extends Omit<ConfigureStoreOptions<CombinedState<S>, A, M>, 'reducer'> {
   sagaMiddlewareOptions?: SagaMiddlewareOptions<C>
 }
 
@@ -40,7 +48,7 @@ export function createLazyStore<S, A extends Action = AnyAction, M extends Middl
   createLazyStoreOptions?: CreateLazyStoreOptions<S, A, M, C>,
 ) {
 
-  function injectModuleManager<M extends ReadonlyArray<Middleware<{}, S>>>(store: EnhancedStore<S, A, M>): LazyStoreSaga<S, A, M> {
+  function injectModuleManager<M extends ReadonlyArray<Middleware<{}, S>>>(store: EnhancedStore<CombinedState<S>, A, M>): LazyStoreSaga<S, A, M> {
     (store as LazyStoreSaga<S, A, M>).moduleManager = {
       enter: (key, reducer?, saga?) => {
         let isNew = true
@@ -93,7 +101,7 @@ export function createLazyStore<S, A extends Action = AnyAction, M extends Middl
     [K in keyof S]?: Task|null
   } = {}
 
-  function createReducer(): Reducer<S, A> {
+  function createReducer(): Reducer<CombinedState<S>, A> {
     return combineReducers({
       ...staticReducers,
       ...lazyReducers,
@@ -101,10 +109,10 @@ export function createLazyStore<S, A extends Action = AnyAction, M extends Middl
   }
 
   const {
-    sagaMiddlewareOptions,
-    middleware: configureStoreOptionsMiddleware,
-    ...configureStoreOptions
-  } = createLazyStoreOptions ?? {}
+          sagaMiddlewareOptions,
+          middleware: configureStoreOptionsMiddleware,
+          ...configureStoreOptions
+        } = createLazyStoreOptions ?? {}
   const sagaMiddleware = createSagaMiddleware(sagaMiddlewareOptions)
 
   const store = configureStore({

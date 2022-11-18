@@ -1,4 +1,4 @@
-import { createLazyStore } from '~/lazy-store'
+import { createLazyStore } from '~/lazy-store.js'
 
 test('simple usage', () => {
   interface RootState {

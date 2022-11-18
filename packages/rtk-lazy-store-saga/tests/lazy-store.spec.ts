@@ -1,5 +1,4 @@
-import { createLazyStore } from '~/lazy-store'
-import { cancelled } from 'redux-saga/effects'
+import {createLazyStore} from '../src/lazy-store.js'
 
 
 test('simple usage', () => {
@@ -16,9 +15,7 @@ test('simple usage', () => {
 
   function *staticSaga() {
     while (true) {
-      if ((yield cancelled()) as boolean) {
-        return
-      }
+      yield 1
     }
   }
 

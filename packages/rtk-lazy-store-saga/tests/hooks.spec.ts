@@ -1,4 +1,4 @@
-import { createUseLazyReducer } from '~/main'
+import { createUseLazyReducer } from '~/main.js'
 
 
 test('no throw', () => {

@@ -1,13 +1,14 @@
 import type {
   Action,
   AnyAction,
+  CombinedState,
   ConfigureStoreOptions,
   EnhancedStore,
   Middleware,
   Reducer,
 } from '@reduxjs/toolkit'
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import type { ThunkMiddlewareFor } from '@reduxjs/toolkit/dist/getDefaultMiddleware'
+import {combineReducers, configureStore} from '@reduxjs/toolkit'
+import type {ThunkMiddlewareFor} from '@reduxjs/toolkit/dist/getDefaultMiddleware.js'
 
 
 type Middlewares<S> = ReadonlyArray<Middleware<{}, S>>
@@ -15,7 +16,7 @@ type Middlewares<S> = ReadonlyArray<Middleware<{}, S>>
 export interface LazyStore<S,
   A extends Action = AnyAction,
   M extends Middlewares<S> = [ThunkMiddlewareFor<S>],
-  > extends EnhancedStore<S, A, M> {
+> extends EnhancedStore<CombinedState<S>, A, M> {
   moduleManager: {
     /**
      * @returns Whether newly added or not
@@ -30,7 +31,7 @@ export interface LazyStore<S,
 
 
 export type CreateLazyStore<S, A extends Action = AnyAction, M extends Middlewares<S> = [ThunkMiddlewareFor<S>]> =
-  Omit<ConfigureStoreOptions<S, A, M>, 'reducer'>
+  Omit<ConfigureStoreOptions<CombinedState<S>, A, M>, 'reducer'>
 
 
 export function createLazyStore<S, A extends Action = AnyAction, M extends Middlewares<S> = [ThunkMiddlewareFor<S>]>(
@@ -40,7 +41,7 @@ export function createLazyStore<S, A extends Action = AnyAction, M extends Middl
   createLazyStoreOptions?: CreateLazyStore<S, A, M>,
 ) {
 
-  function injectModuleManager<M extends ReadonlyArray<Middleware<{}, S>>>(store: EnhancedStore<S, A, M>): LazyStore<S, A, M> {
+  function injectModuleManager<M extends ReadonlyArray<Middleware<{}, S>>>(store: EnhancedStore<CombinedState<S>, A, M>): LazyStore<S, A, M> {
     (store as LazyStore<S, A, M>).moduleManager = {
       enter: (key, reducer?) => {
         let isNew = true
@@ -76,7 +77,7 @@ export function createLazyStore<S, A extends Action = AnyAction, M extends Middl
 
   const lazyReducers: Partial<RM> = {}
 
-  function createReducer(): Reducer<S, A> {
+  function createReducer(): Reducer<CombinedState<S>, A> {
     return combineReducers({
       ...staticReducers,
       ...lazyReducers,
